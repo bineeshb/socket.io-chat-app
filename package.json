@@ -1,0 +1,32 @@
+{
+  "name": "socket.io-chat-app",
+  "version": "1.0.0",
+  "description": "Chat application using Socket.io",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bineeshb/socket.io-chat-app.git"
+  },
+  "keywords": [
+    "socket.io",
+    "node",
+    "express"
+  ],
+  "author": "Bineesh B",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bineeshb/socket.io-chat-app/issues"
+  },
+  "homepage": "https://github.com/bineeshb/socket.io-chat-app#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
