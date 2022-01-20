@@ -88,10 +88,12 @@ a {
 .chat-messages {
 	padding: 30px;
 	max-height: 500px;
+	height: calc(100% - 40px);
 	overflow-y: scroll;
 }
 
 .chat-messages .message {
+	display: inline-block;
 	padding: 10px;
 	margin-bottom: 15px;
 	background-color: var(--light-color);
@@ -106,8 +108,20 @@ a {
 	margin-bottom: 7px;
 }
 
-.chat-messages .message .meta span {
+.chat-messages .message .meta span, .notification-time {
 	color: #777;
+}
+
+.chat-messages .self-message {
+	text-align: right;
+}
+
+.chat-messages .notification {
+	margin-bottom: 7px;
+}
+
+#feedback {
+	padding: 5px 30px;
 }
 
 .chat-form-container {

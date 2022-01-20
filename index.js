@@ -39,6 +39,14 @@ io.on('connection', socket => {
     emitRoomUsers(user.room);
   });
 
+  socket.on('typing', () => {
+    const user = getCurrentUser(socket.id);
+
+    socket.broadcast
+      .to(user.room)
+      .emit('feedback', `${user.name} is typing...`);
+  });
+
   socket.on('sendMessage', message => {
     const user = getCurrentUser(socket.id);
 
