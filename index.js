@@ -30,11 +30,11 @@ io.on('connection', socket => {
 
     socket.join(user.room);
 
-    socket.emit('notification', formatMessage(CHATBOT, 'Welcome to Chat App !'));
+    socket.emit('notification', formatMessage(CHATBOT, CHATBOT, 'Welcome to Chat App !'));
 
     socket.broadcast
       .to(user.room)
-      .emit('notification', formatMessage(CHATBOT, `${user.name} has joined !`));
+      .emit('notification', formatMessage(CHATBOT, CHATBOT, `${user.name} has joined !`));
 
     emitRoomUsers(user.room);
   });
@@ -58,7 +58,7 @@ io.on('connection', socket => {
   socket.on('sendMessage', message => {
     const user = getUserById(socket.id);
 
-    io.to(user.room).emit('chatMessage', formatMessage(user.name, message));
+    io.to(user.room).emit('chatMessage', formatMessage(user.id, user.name, message));
   });
 
   socket.on('disconnect', () => {
@@ -67,7 +67,7 @@ io.on('connection', socket => {
     if (user) {
       socket.broadcast
         .to(user.room)
-        .emit('notification', formatMessage(CHATBOT, `${user.name} has left !`));
+        .emit('notification', formatMessage(CHATBOT, CHATBOT, `${user.name} has left !`));
 
       emitRoomUsers(user.room);
     }
