@@ -4,7 +4,7 @@ const path = require('path');
 const socketio = require('socket.io');
 
 const formatMessage = require('./utils/formatMessage');
-const { getCurrentUser, getRoomUsers, userJoin, userLeave } = require('./utils/users');
+const { getRoomUsers, getUserById, getUsersTyping, userJoin, userLeave, userStoppedTyping, userTyping } = require('./utils/users');
 
 const PORT = 3000;
 const CHATBOT = 'ChatBot';
@@ -40,15 +40,23 @@ io.on('connection', socket => {
   });
 
   socket.on('typing', () => {
-    const user = getCurrentUser(socket.id);
+    const user = userTyping(socket.id);
 
     socket.broadcast
       .to(user.room)
-      .emit('feedback', `${user.name} is typing...`);
+      .emit('feedback', getUsersTyping());
+  });
+
+  socket.on('stoppedTyping', () => {
+    const user = userStoppedTyping(socket.id);
+
+    socket.broadcast
+      .to(user.room)
+      .emit('feedback', getUsersTyping());
   });
 
   socket.on('sendMessage', message => {
-    const user = getCurrentUser(socket.id);
+    const user = getUserById(socket.id);
 
     io.to(user.room).emit('chatMessage', formatMessage(user.name, message));
   });
